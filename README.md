@@ -166,4 +166,8 @@ This endpoint handles the creation and deployment of new MCP services. It integr
 
 Here's an example of the form used to create a new MCP: 
 
+<img width="1845" height="994" alt="connect_wallet" src="https://github.com/user-attachments/assets/732e1f88-83f6-4708-b147-097024f39d02" />
+
 <img width="1024" height="1024" alt="create_new_mcp" src="https://github.com/user-attachments/assets/fb4ebd1f-3e8d-4ede-a131-2c29e902ea09" />
+
+
