@@ -248,3 +248,198 @@ Here's a view of the marketplace showing various deployed MCPs:
 
 <img width="1824" height="994" alt="agents" src="https://github.com/user-attachments/assets/c24306b4-e92a-4c34-8065-48766a1c789e" />
 
+
+
+#### `PATCH /api/marketplace`
+
+Updates the deployment status of a specific MCP by checking the Render API and persisting any changes to the database.
+
+**Request Body:**
+
+```json
+{
+  "id": "string" // Required: The internal database ID of the MCP to update
+}
+```
+
+**Response:**
+
+```json
+{
+  "mcp": { ... },           // The updated MCP object
+  "statusChanged": boolean, // True if the status was updated, false otherwise
+  "oldStatus": "string",    // Previous status
+  "newStatus": "string"     // New status
+}
+```
+
+**Error Codes:**
+- `400 Bad Request`: Missing `id`, or `render_service_id`/`deploy_id` are missing in the MCP record.
+- `404 Not Found`: MCP with the given `id` not found.
+- `500 Internal Server Error`: Render API call failure or database update error.
+
+### `/api/mcp-tools` (GET, POST)
+
+This endpoint is used to fetch the list of tools exposed by one or more live MCP servers.
+
+#### `GET /api/mcp-tools`
+
+**Query Parameters:**
+- `url`: (Optional) The base URL of a single MCP server.
+- `urls`: (Optional) A comma-separated list of MCP server URLs.
+
+**Response (single URL):**
+
+```json
+{
+  "info": {
+    "name": "string",
+    "description": "string",
+    "environmentVariables": {} // Environment variables required by the MCP
+  },
+  "tools": [
+    {
+      "name": "string",
+      "description": "string",
+      "parameters": {}, // JSON schema for tool parameters
+      "endpoint": "string" // Relative path to the tool endpoint
+    }
+  ]
+}
+```
+
+**Response (multiple URLs):**
+
+```json
+[
+  {
+    "url": "string",
+    "info": { ... },
+    "tools": [ ... ]
+  },
+  // ... for each URL
+]
+```
+
+#### `POST /api/mcp-tools`
+
+**Request Body:**
+
+```json
+{
+  "urls": ["string", "string"] // Required: An array of MCP server URLs
+}
+```
+
+**Response:**
+
+(Same as `GET` with multiple URLs)
+
+**Error Codes:**
+- `400 Bad Request`: Missing `url`/`urls` parameter or invalid `urls` array in POST.
+- `500 Internal Server Error`: Failure to fetch tools from the MCP server.
+
+### `/api/user-services` (GET)
+
+This endpoint provides a summary of services associated with the authenticated user, along with statistics.
+
+**Response:**
+
+```json
+{
+  "user": {
+    "id": "string",
+    "data": {}, // Additional user data
+    "stats": {
+      "totalServices": number,
+      "liveServices": number,
+      "buildingServices": number,
+      "failedServices": number
+    }
+  },
+  "services": [], // Array of services associated with the user
+  "summary": {
+    "total": number,
+    "live": number,
+    "building": number,
+    "failed": number
+  }
+}
+```
+
+**Error Codes:**
+- `500 Internal Server Error`: Failure to retrieve user or service data.
+
+### `/api/user` (POST, GET)
+
+This endpoint handles user creation and retrieval.
+
+#### `POST /api/user`
+
+Creates a new user record or updates an existing one in Supabase.
+
+**Request Body:**
+
+```json
+{
+  "user_id": "string",    // Required: Unique ID for the user
+  "email": "string",      // Optional: User's email
+  "username": "string",   // Optional: User's username
+  "avatar_url": "string", // Optional: URL to user's avatar
+  "metadata": {}          // Optional: Arbitrary JSON metadata
+}
+```
+
+**Response:**
+
+```json
+{
+  "user": {
+    "user_id": "string",
+    "email": "string",
+    "username": "string",
+    "avatar_url": "string",
+    "metadata": {},
+    "created_at": "datetime",
+    "updated_at": "datetime"
+  }
+}
+```
+
+#### `GET /api/user`
+
+Retrieves a user's profile information.
+
+**Query Parameters:**
+- `user_id`: (Required) The unique ID of the user.
+
+**Response:**
+
+```json
+{
+  "user": {
+    "user_id": "string",
+    "email": "string",
+    "username": "string",
+    "avatar_url": "string",
+    "metadata": {},
+    "created_at": "datetime",
+    "updated_at": "datetime"
+  }
+}
+```
+
+**Error Codes:**
+- `400 Bad Request`: Missing `user_id` parameter.
+- `404 Not Found`: User not found.
+- `500 Internal Server Error`: Database error.
+
+---
+
+## Frontend Components
+
+The platform includes several React components to provide a user-friendly interface:
+
+-   **`MarketplacePage.js`**: The main page for discovering MCPs. It fetches available MCPs, displays their details, and provides search and filtering capabilities. It also polls for status updates of deploying MCPs to provide real-time feedback.
+    
+    Here's a close-up of an individual MCP card in the marketplace, showing its tools and status: 
