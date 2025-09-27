@@ -1,6 +1,7 @@
 Here's a descriptive `README.md` for your repository, incorporating the existing content, detailing the new API endpoints, and suggesting placements for your images.
 
 ---
+<img width="1343" height="763" alt="cover" src="https://github.com/user-attachments/assets/8ff97782-5911-4d6f-bc10-04bd4c75fc4f" />
 
 # X402 Modular Compute Protocol (MCP) Platform
 
