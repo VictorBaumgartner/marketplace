@@ -105,6 +105,9 @@ You can try these sample MCPs with the platform:
 
 Follow the instructions in each repository/website to configure environment variables and run the servers. The tools are already added to the platform. You can still test it out by deploying those MCPs to the platform. Instructions for deploying them are in their respective repositories READMEs.
 
+Connecting to the wallet : 
+<img width="1845" height="994" alt="connect_wallet" src="https://github.com/user-attachments/assets/62a1dd3c-b329-4416-846a-98c4fe1f9211" />
+
 ---
 
 ## API Endpoints
