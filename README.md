@@ -1,53 +1,167 @@
-> Note: After signing in, the dashboard may take 5–10 seconds to load. Please wait for the redirect to complete.
-> Deployment of MCP servers from the platform typically takes 1–2 minutes.
-If tools are not visible, reload the page to see the new tools once the MCP server is deployed and live.
+Here's a descriptive `README.md` for your repository, incorporating the existing content, detailing the new API endpoints, and suggesting placements for your images.
 
-## Using MCPs on the Platform
+---
+
+# X402 Modular Compute Protocol (MCP) Platform
+
+This repository provides the core components and a platform for deploying and managing Modular Compute Protocols (MCPs) with X402 payments. It leverages Render for service deployments and Supabase for database management, offering a seamless experience for developers to publish and users to discover and utilize on-chain AI/compute services.
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Using MCPs on the Platform](#using-mcps-on-the-platform)
+  - [Adding X402 Sample MCPs](#adding-x402-sample-mcps)
+- [API Endpoints](#api-endpoints)
+  - [`/api/create-mcp` (POST)](#apicreate-mcp-post)
+  - [`/api/deployment-status` (GET)](#apideployment-status-get)
+  - [`/api/marketplace` (GET, PATCH)](#apimarketplace-get-patch)
+  - [`/api/mcp-tools` (GET, POST)](#apimcp-tools-get-post)
+  - [`/api/user-services` (GET)](#apiuser-services-get)
+  - [`/api/user` (POST, GET)](#apiuser-post-get)
+- [Frontend Components](#frontend-components)
+- [Deployment Notes](#deployment-notes)
+- [Contributing](#contributing)
+- [License](#license)
+
+---
+
+## Overview
+
+The X402 MCP Platform simplifies the deployment and interaction with on-chain compute services, enabling a marketplace where users can discover and integrate various Modular Compute Protocols. It handles the complexities of service deployment, status tracking, and X402 payment flows, allowing developers to focus on building powerful MCPs.
+
+## Features
+
+- **MCP Deployment:** Easily deploy your GitHub-hosted MCPs as web services via the platform, leveraging Render's infrastructure.
+- **X402 Payment Integration:** Automatic handling of X402 payment flows for invoking MCP tools.
+- **Marketplace Discovery:** A centralized marketplace for users to browse, search, and integrate available MCPs.
+- **Deployment Status Tracking:** Real-time monitoring of MCP deployment status (pending, building, live, failed).
+- **User Management:** Basic user profile management and service association.
+- **Tool Listing:** Fetches and displays available tools from deployed MCP servers.
+- **Sample MCPs:** Includes examples like a YouTube clipping tool and a TODO list service to get started quickly.
+
+## Getting Started
+
+### Prerequisites
+
+Before you begin, ensure you have the following:
+
+- Node.js (v18 or higher)
+- npm or Yarn
+- Git
+- A GitHub account
+- A Render account (for `RENDER_OWNER_ID` and API key)
+- A Supabase project for database management
+- Access to Base Sepolia testnet funds (USDC/ETH) for X402 payments. Use the [Coinbase faucet](https://portal.cdp.coinbase.com/products/faucet) to obtain these.
+
+### Using MCPs on the Platform
 
 Follow these steps to enable MCPs with X402 payments in your client:
 
-1) Clone the X402 MCP repo and build it
+1.  **Clone the X402 MCP repo and build it**
 
-```bash
-git clone https://github.com/Nirmal2000/x402-mcp.git
-cd x402-mcp
-npm run build
-```
+    ```bash
+    git clone https://github.com/Nirmal2000/x402-mcp.git
+    cd x402-mcp
+    npm run build
+    ```
 
-2) Configure your MCP client to use the client proxy
+2.  **Configure your MCP client to use the client proxy**
 
-You can copy the MCP client config directly from the Marketplace UI. For reference, here is the manual form you can paste into your client config (e.g., Claude Desktop `claude_desktop_config.json`):
+    You can copy the MCP client config directly from the Marketplace UI. For reference, here is the manual form you can paste into your client config (e.g., Claude Desktop `claude_desktop_config.json`):
 
-```json
-"youtube-video-clipper": {
-  "command": "node",
-  "args": [
-    "[path to repo]/x402-mcp/dist/scripts/client-proxy.js"
-  ],
-  "env": {
-    "PRIVATE_KEY": "your private key",
-    "TARGET_URL": "the server url from the platform"
-  }
-}
-```
+    ```json
+    "youtube-video-clipper": {
+      "command": "node",
+      "args": [
+        "[path to repo]/x402-mcp/dist/scripts/client-proxy.js"
+      ],
+      "env": {
+        "PRIVATE_KEY": "your private key",
+        "TARGET_URL": "the server url from the platform"
+      }
+    }
+    ```
 
-- PRIVATE_KEY: your wallet’s private key for payments.
-- TARGET_URL: the MCP server URL provided by the platform (the tool endpoint).
+    -   `PRIVATE_KEY`: your wallet’s private key for payments.
+    -   `TARGET_URL`: the MCP server URL provided by the platform (the tool endpoint).
 
-Once added, restart your MCP client. You can now invoke tools exposed by the server and the proxy will handle X402 payment flows automatically.
+    Once added, restart your MCP client. You can now invoke tools exposed by the server, and the proxy will handle X402 payment flows automatically.
 
-Testnet funds: use the Coinbase faucet to obtain USDC/ETH on Base Sepolia for tool payments and gas:
-https://portal.cdp.coinbase.com/products/faucet
+    **Testnet funds:** Use the Coinbase faucet to obtain USDC/ETH on Base Sepolia for tool payments and gas:
+    https://portal.cdp.coinbase.com/products/faucet
 
-
-## Adding X402 Sample MCPs
+### Adding X402 Sample MCPs
 
 You can try these sample MCPs with the platform:
 
-1. YouTube clipping example
-   - https://github.com/Nirmal2000/youtube-video-clip
-2. TODO sample (same repo as the X402 MCP toolkit)
-   - https://github.com/Nirmal2000/x402-mcp.git
+1.  **YouTube clipping example**
+    -   [https://github.com/Nirmal2000/youtube-video-clip](https://github.com/Nirmal2000/youtube-video-clip)
+2.  **TODO sample** (same repo as the X402 MCP toolkit)
+    -   [https://github.com/Nirmal2000/x402-mcp.git](https://github.com/Nirmal2000/x402-mcp.git)
 
-Follow the instructions in each repository/website to configure environment variables and run the servers.
-The tools are already added to the platform. You can still test it out by deploying those MCPs to the platform. Instructions for deploying them are in their respective repositories READMEs.
+Follow the instructions in each repository/website to configure environment variables and run the servers. The tools are already added to the platform. You can still test it out by deploying those MCPs to the platform. Instructions for deploying them are in their respective repositories READMEs.
+
+---
+
+## API Endpoints
+
+This section describes the backend API routes that power the MCP platform.
+
+### `/api/create-mcp` (POST)
+
+This endpoint handles the creation and deployment of new MCP services. It integrates with Render to provision new web services and stores the deployment details in Supabase.
+
+**Request Body:**
+
+```json
+{
+  "userId": "string",             // Required: The ID of the user deploying the MCP
+  "name": "string",               // Required: Name of the MCP service
+  "repo": "string",               // Required: GitHub repository URL (e.g., "https://github.com/user/repo")
+  "branch": "string",             // Optional: Git branch to deploy from (default: "main")
+  "envVars": [{                   // Optional: Array of environment variables
+    "key": "string",
+    "value": "string"
+  }],
+  "buildCommand": "string",       // Optional: Build command for Render service
+  "startCommand": "string",       // Optional: Start command for Render service
+  "rootDir": "string",            // Optional: Root directory for the service
+  "runtime": "string",            // Optional: Runtime environment (e.g., "node")
+  "plan": "string"                // Optional: Render service plan (e.g., "starter")
+}
+```
+
+**Response:**
+
+```json
+{
+  "service": {
+    "id": "string",                // Internal database ID of the MCP
+    "name": "string",
+    "ownerId": "string",           // Render owner ID
+    "repo": "string",
+    "branch": "string",
+    "rootDir": "string",
+    "createdAt": "datetime",
+    "updatedAt": "datetime",
+    "type": "web_service",
+    "serviceDetails": {
+      "url": "string",             // Deployed service URL
+      "buildCommand": "string",
+      "startCommand": "string",
+      "buildPlan": "string",
+      "env": "string"
+    }
+  },
+  "deployId": "string"             // Render deployment ID
+}
+```
+
+**Error Codes:**
+- `400 Bad Request`: Missing required fields, invalid GitHub URL, or missing user ID.
+- `500 Internal Server Error`: Render API errors, missing `RENDER_OWNER_ID`, or database storage failures.
+
+Here's an example of the form used to create a new MCP: 
