@@ -172,3 +172,75 @@ Here's an example of the form used to create a new MCP:
 <img width="1024" height="1024" alt="create_new_mcp" src="https://github.com/user-attachments/assets/fb4ebd1f-3e8d-4ede-a131-2c29e902ea09" />
 
 
+
+### `/api/deployment-status` (GET)
+
+This endpoint provides the real-time deployment status of a specific MCP from the Render API.
+
+**Query Parameters:**
+- `serviceId`: (Required) The Render service ID associated with the MCP.
+- `deployId`: (Required) The Render deployment ID for the specific deployment.
+
+**Response:**
+
+```json
+{
+  "status": "string" // e.g., "build_in_progress", "live", "failed"
+}
+```
+
+**Error Codes:**
+- `400 Bad Request`: Missing `serviceId` or `deployId`.
+- `500 Internal Server Error`: Render API call failure.
+
+### `/api/marketplace` (GET, PATCH)
+
+This endpoint manages the MCP marketplace, allowing retrieval of all deployed MCPs and updating their deployment statuses.
+
+#### `GET /api/marketplace`
+
+Retrieves a list of all MCPs stored in the database, including their current status and fetched tool information for 'live' services.
+
+**Response:**
+
+```json
+{
+  "mcps": [
+    {
+      "id": "string",
+      "user_id": "string",
+      "name": "string",
+      "repo": "string",
+      "branch": "string",
+      "build_command": "string",
+      "start_command": "string",
+      "root_dir": "string",
+      "runtime": "string",
+      "env_vars": [],
+      "plan": "string",
+      "deploy_id": "string",
+      "deploy_url": "string", // URL where the MCP is deployed
+      "render_service_id": "string",
+      "status": "string",     // Current deployment status
+      "input_json": {},       // Original input for deployment
+      "output_json": {},      // Raw response from Render API
+      "created_at": "datetime",
+      "updated_at": "datetime",
+      "tools": [              // (Only for live MCPs) Array of tools provided by the MCP
+        {
+          "name": "string",
+          "description": "string",
+          "parameters": {},
+          "endpoint": "string"
+        }
+      ],
+      "description": "string",// (Only for live MCPs) Description from MCP tools API
+      "environment_variables": {},// (Only for live MCPs) Env vars required by MCP
+      "pricing": 0            // Placeholder for future pricing integration
+    }
+  ]
+}
+```
+
+Here's a view of the marketplace showing various deployed MCPs: 
+
