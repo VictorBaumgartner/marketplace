@@ -471,5 +471,5 @@ We welcome contributions! Please feel free to open issues or submit pull request
 
 ## License
 
-MIT License
+MIT License 🏛️
 ---
