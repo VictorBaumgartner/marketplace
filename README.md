@@ -244,3 +244,7 @@ Retrieves a list of all MCPs stored in the database, including their current sta
 
 Here's a view of the marketplace showing various deployed MCPs: 
 
+<img width="1024" height="1024" alt="choose_agent" src="https://github.com/user-attachments/assets/09676f86-de5b-4727-a21f-e338b1c046d3" />
+
+<img width="1824" height="994" alt="agents" src="https://github.com/user-attachments/assets/c24306b4-e92a-4c34-8065-48766a1c789e" />
+
