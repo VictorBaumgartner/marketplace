@@ -446,4 +446,27 @@ The platform includes several React components to provide a user-friendly interf
 
     <img width="1024" height="1024" alt="sentiment_analyzer" src="https://github.com/user-attachments/assets/1e9f876c-8d0d-470d-babd-e848de7d2759" />
     
+-   **`CreatePage.js`**: Provides the interface for users to create and deploy new MCPs using the `/api/create-mcp` endpoint. It leverages the `CreateMCPForm` component.
 
+-   **`CreateMCPForm.js`**: A custom form component (not shown in provided code but inferred) that collects necessary details (repo URL, name, environment variables, etc.) for deploying an MCP.
+
+-   **`NavigationBar.js`**: The common navigation bar for the application, ensuring consistent user experience across pages.
+
+-   **`ProtectedRoute.js`**: A higher-order component or wrapper that ensures only authenticated users can access certain routes, integrating with `@civic/auth-web3/react`.
+
+-   **`MCPCard.js`**: A reusable component to display individual MCP details in the marketplace, including its status, description, and available tools.
+
+## Deployment Notes
+
+> **Note:** After signing in, the dashboard may take 5–10 seconds to load. Please wait for the redirect to complete.
+> Deployment of MCP servers from the platform typically takes 1–2 minutes.
+> If tools are not visible, reload the page to see the new tools once the MCP server is deployed and live.
+
+## Contributing
+
+We welcome contributions! Please feel free to open issues or submit pull requests.
+
+## License
+
+MIT License
+---
