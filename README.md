@@ -442,4 +442,8 @@ The platform includes several React components to provide a user-friendly interf
 
 -   **`MarketplacePage.js`**: The main page for discovering MCPs. It fetches available MCPs, displays their details, and provides search and filtering capabilities. It also polls for status updates of deploying MCPs to provide real-time feedback.
     
-    Here's a close-up of an individual MCP card in the marketplace, showing its tools and status: 
+    Here's a close-up of an individual MCP card in the marketplace, showing its tools and status:
+
+    <img width="1024" height="1024" alt="sentiment_analyzer" src="https://github.com/user-attachments/assets/1e9f876c-8d0d-470d-babd-e848de7d2759" />
+    
+
