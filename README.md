@@ -165,3 +165,5 @@ This endpoint handles the creation and deployment of new MCP services. It integr
 - `500 Internal Server Error`: Render API errors, missing `RENDER_OWNER_ID`, or database storage failures.
 
 Here's an example of the form used to create a new MCP: 
+
+<img width="1024" height="1024" alt="create_new_mcp" src="https://github.com/user-attachments/assets/fb4ebd1f-3e8d-4ede-a131-2c29e902ea09" />
